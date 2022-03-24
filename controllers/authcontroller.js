@@ -87,7 +87,7 @@ async function login_info(req, res) {
 
         let passmatch = await bcrypt.compare(password, user.password)
         if (passmatch) {
-            const Secret_key = '80fd84ebe88738811b22ab3372c53b383f8ac3cdab92205a096ac393cb03b1b7c7d7721655191dc6d6def80d9e0efe52100a52f057e28c72f5185370'
+            const Secret_key = process.env.SECRET_KEY
             const token = jwt.sign({ payload: user._id }, Secret_key, { expiresIn: '2 days' })
             res.cookie('_loggedin', token, { httpOnly: true })
             req.flash('success', 'user login successful')
